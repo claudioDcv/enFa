@@ -180,8 +180,8 @@ export default class Month {
     }
 
     run(test)
-    console.log(end, e1);
-
+    console.log(end, e1)
+    return end
   }
 
   createMonthVisual() {

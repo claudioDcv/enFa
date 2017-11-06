@@ -69,4 +69,6 @@ listEvent.appendEvent(new Event(
 ))
 const list = listEvent.getList()
 
-a.appendEventListToMonth(list)
+
+export default list
+// a.appendEventListToMonth(list)

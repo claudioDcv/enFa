@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // import moment from 'moment'
 
-import './core/Scheduler'
+import list from './core/Scheduler'
 
 import Month from './core/Month'
 import Day from './core/Day'
@@ -24,6 +24,7 @@ class Calendar extends Component {
       day: null,
       titleDay: '',
       calendarHeight: 0,
+      dayListEvent: [],
     }
 
     this.node = null
@@ -94,9 +95,31 @@ class Calendar extends Component {
   }
 
   createDaysVisual() {
-    return this.state.day.hours.map(e => (
-      <div className="hour" key={e.hour}>{e.hour}</div>
+    const hh = this.state.day.hours.map((e, i) => (
+      <div key={i} className="hour" key={e.hour}>{e.hour}</div>
     ))
+
+    console.log(this.state.dayListEvent);
+    const len = this.state.dayListEvent.length
+    const event = this.state.dayListEvent && this.state.dayListEvent.map((e, i) => (
+      <div key={i} style={{
+        width: `${(100/len)}%`,
+      }} className="event-track">
+        {e.map((f, j) => (
+          <div key={j} style={{
+            top: `${f.percentS}%`,
+            height: `${f.percentE - f.percentS}%`,
+          }} className="event">{f.s}</div>
+        ))}
+      </div>
+    ))
+    const wrap = (
+      <div>
+        <div className="hh">{hh}</div>
+        <div className="events">{event}</div>
+      </div>
+    )
+    return wrap
   }
 
   showDay(date) {
@@ -106,6 +129,7 @@ class Calendar extends Component {
       titleDay: date.day.name,
       month: new Month(date.day.date).c,
       day: new Day(date.day.date).c,
+      dayListEvent: new Month(date.day.date).appendEventListToMonth(list),
     })
   }
 
