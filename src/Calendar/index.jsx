@@ -15,7 +15,6 @@ import './Calendar.css';
 class Calendar extends Component {
   constructor(props) {
     super(props)
-    // moment.isDate(props.initialDate)
     this.state = {
       month: new Month(new Date2()).c,
       showMonth: true,
